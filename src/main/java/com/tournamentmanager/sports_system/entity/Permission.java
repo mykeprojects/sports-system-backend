@@ -1,0 +1,32 @@
+package com.tournamentmanager.sports_system.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "permissions")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Permission {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 255)
+    private String url;
+
+    @Column(nullable = false, length = 10)
+    private String method;
+
+    @Column(nullable = false, length = 100)
+    private String model;
+
+    @OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RolePermission> rolePermissions = new ArrayList<>();
+}
